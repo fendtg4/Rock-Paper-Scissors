@@ -39,7 +39,8 @@
         if (winCondition=="win") {
             playerScore++;
             if (playerScore == 5) {
-                alert(document.getElementById("player-wins").innerHTML);                
+                alert(document.getElementById("player-wins").innerHTML);
+                location.reload();
             }
             return;
         }
@@ -47,7 +48,7 @@
             computerScore++;
             if (computerScore == 5) {
                 alert(document.getElementById("computer-wins").innerHTML);
-
+                location.reload();
             }
             return;
         }
