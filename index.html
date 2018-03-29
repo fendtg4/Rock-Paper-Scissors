@@ -2,8 +2,19 @@
 <html>
 <head>
   <title>Rock Paper Scissors</title>
+  <link rel = "stylesheet" href = "rps.css"> 
 </head>
 <body>
+    <h1> Rock Paper Scissors! </h1>
+
+    <h2> First to Five Wins! </h2>
+
+   <button type = "button" class = "rock" onclick = 'playRound("ROCK", computerPlay())'> </button>
+    <button type = "button" class = "paper" onclick = 'playRound("PAPER", computerPlay())'> </button>
+    <button type = "button" class = "scissors" onclick = 'playRound("SCISSORS", computerPlay())'> </button>
+
+
+    
   <script>
     let playerScore = 0;
     let computerScore = 0;
@@ -24,119 +35,153 @@
         return computerSelection;
     }
 
+    function score(winCondition) {
+        if (winCondition=="win") {
+            playerScore++;
+            if (playerScore == 5) {
+                alert(document.getElementById("player-wins").innerHTML);                
+            }
+            return;
+        }
+        else {
+            computerScore++;
+            if (computerScore == 5) {
+                alert(document.getElementById("computer-wins").innerHTML);
+
+            }
+            return;
+        }
+    }
+
     function playRound (playerSelection, computerSelection) {
+        round++;
         playerSelection = playerSelection.toUpperCase();
         if (computerSelection == "Rock" && playerSelection == "SCISSORS") {
-            return "You Lose! Rock beats Scissors";
+            score("lose");
+            let para = document.createElement("p");
+            let node = document.createTextNode("Round " + round + ": You Lose! Rock beats Scissors");
+            para.appendChild(node);
+
+            let element = document.getElementById("score-tracker");
+            element.appendChild(para);
+            document.getElementById("player-score").value = playerScore;
+            document.getElementById("computer-score").value = computerScore;
+            return;
         }
         else if (computerSelection == "Rock" && playerSelection == "ROCK") {
-            return "It's a tie! Both used Rock";
+            let para = document.createElement("p");
+            let node = document.createTextNode("Round " + round + ": It's a tie! Both used Rock");
+            para.appendChild(node);
+
+            let element = document.getElementById("score-tracker");
+            element.appendChild(para);
+            document.getElementById("player-score").value = playerScore;
+            document.getElementById("computer-score").value = computerScore;
+            return;
             }
         else if (computerSelection == "Rock" && playerSelection == "PAPER") {
-            return "You Win! Paper beats Rock";
+            score("win");
+            let para = document.createElement("p");
+            let node = document.createTextNode("Round " + round + ": You Win! Paper beats Rock");
+            para.appendChild(node);
+
+            let element = document.getElementById("score-tracker");
+            element.appendChild(para);
+            document.getElementById("player-score").value = playerScore;
+            document.getElementById("computer-score").value = computerScore;
+            return;
             }
         else if (computerSelection == "Paper" && playerSelection == "ROCK")
             {
-                return "You Lose! Paper beats Rock";
+                score("lose");
+            let para = document.createElement("p");
+            let node = document.createTextNode("Round " + round + ": You Lose! Paper beats Rock");
+            para.appendChild(node);
+
+            let element = document.getElementById("score-tracker");
+            element.appendChild(para);
+            document.getElementById("player-score").value = playerScore;
+            document.getElementById("computer-score").value = computerScore;
+                return;
             }
         else if (computerSelection == "Paper" && playerSelection == "PAPER")
             {
-                return "It's a tie! Both used Paper";
+            let para = document.createElement("p");
+            let node = document.createTextNode("Round " + round + ": It's a tie! Both used Paper");
+            para.appendChild(node);
+
+            let element = document.getElementById("score-tracker");
+            element.appendChild(para);
+            document.getElementById("player-score").value = playerScore;
+            document.getElementById("computer-score").value = computerScore;
+            return;
             }
         else if (computerSelection == "Paper" && playerSelection == "SCISSORS")
             {
-                return "You Win! Scissors beats Paper";
+                score("win");
+            let para = document.createElement("p");
+            let node = document.createTextNode("Round " + round + ": You Win! Scissors beats Paper");
+            para.appendChild(node);
+
+            let element = document.getElementById("score-tracker");
+            element.appendChild(para);
+            document.getElementById("player-score").value = playerScore;
+            document.getElementById("computer-score").value = computerScore;  
+            return;
             }
         else if (computerSelection == "Scissors" && playerSelection == "ROCK")
             {
-                return "You Win! Rock beats Scissors";
+            score("win");
+            let para = document.createElement("p");
+            let node = document.createTextNode("Round " + round + ": You Win! Rock beats Scissors");
+            para.appendChild(node);
+
+            let element = document.getElementById("score-tracker");
+            element.appendChild(para);
+            document.getElementById("player-score").value = playerScore;
+            document.getElementById("computer-score").value = computerScore;
+                return;
             }
         else if (computerSelection == "Scissors" && playerSelection == "PAPER")
             {
-                return "You Lose! Scissors beats Paper";
+            score("lose");
+            let para = document.createElement("p");
+            let node = document.createTextNode("Round " + round + ": You Lose! Scissors beats Paper");
+            para.appendChild(node);
+
+            let element = document.getElementById("score-tracker");
+            element.appendChild(para);
+
+            document.getElementById("player-score").value = playerScore;
+            document.getElementById("computer-score").value = computerScore;
+            return;
             }
         else {
-                return "It's a tie! Both used Scissors";
+            let para = document.createElement("p");
+            let node = document.createTextNode("Round " + round + ": It's a tie! Both used Scissors");
+            para.appendChild(node);
+
+            let element = document.getElementById("score-tracker");
+            element.appendChild(para);
+            document.getElementById("player-score").value = playerScore;
+            document.getElementById("computer-score").value = computerScore;
+            return;
             }
 
     }
     
 
 
-    function game () {
-        playerSelection = prompt("Type rock, paper, or scissors").toUpperCase();
-
-
-        if (playRound(playerSelection, computerPlay()).charAt(4) == "W")
-        {
-            if (playerSelection == "ROCK")
-            {
-                console.log("You Win! Rock beats Scissors");
-            }
-            else if (playerSelection == "SCISSORS")
-            {
-                console.log("You Win! Scissors beats Paper");
-
-            }
-            else {
-                console.log("You Win! Paper beats Rock");
-            }
-            playerScore++;
-            round++;
-        }
-        else if (playRound(playerSelection, computerPlay()).charAt(4) == "L")
-                {   
-            if (playerSelection == "ROCK")
-            {
-                console.log("You Lose! Paper beats Rock");
-            }
-            else if (playerSelection == "SCISSORS")
-            {
-                console.log("You Lose! Rock beats Scissors");
-            }
-            else {
-                console.log("You Lose! Scissors beats Paper");
-            }
-            computerScore++;
-            round++
-        }
-        else {
-            if (playerSelection == "ROCK")
-            {
-                console.log("It's a tie! Both used Rock");
-            }
-            else if (playerSelection == "SCISSORS")
-            {
-                console.log("It's a tie! Both used Scissors");
-            }
-            else {
-                console.log("It's a tie! Both used Paper");
-            }
-            round++;
-        }
-        if (round<5) {
-            game();
-        }
-        else {
-            if (playerScore>computerScore) {
-                console.log("Player Score: " + playerScore + " Computer Score: " + computerScore);
-                console.log("You Win!");
-                return;
-            }
-            else if (computerScore>playerScore) {
-                //console.log(playerScore, computerScore);
-                console.log("Player Score: " + playerScore + " Computer Score: " + computerScore);
-                console.log("You Lose!");
-                return;
-            }
-            else {
-                console.log("Player Score: " + playerScore + " Computer Score: " + computerScore);
-                console.log("It's a Tie!");
-                return;
-            }
-        }
-    }
-    
+     
   </script>
+   <div id = "score-tracker"> 
+    <p class = "player-score-data"> Player score: <input type="text" id ="player-score"> </p>
+    <p class = "computer-score-data"> Computer score : <input type = "text" id = "computer-score"> </p>
+
+    <p hidden id = "player-wins"> You Win! </p>
+    <p hidden id = "computer-wins"> You Lose! </p>
+</div>
+  
+   
 </body>
 </html>
